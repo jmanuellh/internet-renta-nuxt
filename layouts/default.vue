@@ -50,12 +50,19 @@
       </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            @click.stop="rightDrawer = !rightDrawer"
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon>mdi-cog</v-icon>
+          </v-btn>
+        </template>
+        <span>Ajustes</span>
+      </v-tooltip>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -69,14 +76,20 @@
       fixed
     >
       <v-list>
-        <v-list-item @click.native="right = !right">
+        <v-list-item class="flex justify-center">
+          <v-switch
+            v-model="$vuetify.theme.dark"
+            label="modo nocturno"
+          ></v-switch>
+        </v-list-item>
+        <!-- <v-list-item @click.native="right = !right">
           <v-list-item-action>
             <v-icon light>
               mdi-repeat
             </v-icon>
           </v-list-item-action>
           <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
+        </v-list-item> -->
       </v-list>
     </v-navigation-drawer>
     <v-footer
@@ -98,19 +111,19 @@ export default {
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Welcome',
+          title: 'Bienvenido',
           to: '/'
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
+          title: 'Internet rentas',
+          to: '/internet-rentas'
         }
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'Internet servicios'
     }
   }
 }
