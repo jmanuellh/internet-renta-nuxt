@@ -3,5 +3,5 @@
     div
       h1 Internet rentas
     div
-      internet-rentas-tabla
+      internet-rentas-crud
 </template>
