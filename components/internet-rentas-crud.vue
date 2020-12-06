@@ -34,8 +34,7 @@ export default {
   },
   methods: {
     async obtenerInternetRentas() {
-      // this.internetRentas = await $axios.$get("")
-      console.log(this.internetRentas)
+      this.internetRentas = await this.$axios.$get("/internetRentas")
     }
   }
 }
