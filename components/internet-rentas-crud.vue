@@ -17,7 +17,10 @@
           label = "Cantidad"
         )
         div(class="d-flex justify-end" )
-          v-btn(@click="agregarInternetRenta()" color="primary") Agregar renta
+          span(v-if="typeof nuevaRenta.id == 'undefined'" )
+            v-btn(@click="agregarInternetRenta()" color="primary") Agregar renta
+          span(v-else)
+            v-btn(@click="actualizarInternetRenta()" color="warning") Actualizar renta
           
     div
       v-data-table(
@@ -31,6 +34,9 @@
           )
         template(v-slot:item.fechaCorte="{ item }")
           span {{ $moment(item.fechaCorte).format("DD/MM/YYYY") }}
+        template(v-slot:item.acciones="{ item }")
+          v-btn( @click="actualizandoInternetRenta(item)" ) Editar
+            
 
 </template>
 
@@ -57,6 +63,10 @@ export default {
       {
         text: "Cantidad",
         value: "cantidad"
+      },
+      {
+        text: "Acciones",
+        value: "acciones"
       }
     ]
     }
@@ -65,6 +75,9 @@ export default {
     this.obtenerInternetRentas()
   },
   methods: {
+    limpiarNuevaRenta() {
+      this.nuevaRenta = {}
+    },
     async obtenerInternetRentas() {
       this.internetRentas = await this.$axios.$get("/internetRentas")
       // this.internetRentas.forEach((element, index) => {
@@ -79,6 +92,14 @@ export default {
     },
     cambioEstadoCorte(item) {
       this.$axios.$put("/internetRentas/"+item.id, item)
+    },
+    actualizandoInternetRenta(item) {
+      this.nuevaRenta = item
+      this.nuevaRenta.fechaCorte = this.$moment(this.nuevaRenta.fechaCorte).format("YYYY-MM-DD")
+    },
+    async actualizarInternetRenta() {
+      await this.$axios.$put("/internetRentas/"+this.nuevaRenta.id, this.nuevaRenta)
+      this.limpiarNuevaRenta()
     }
   }
 }
