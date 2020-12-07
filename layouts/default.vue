@@ -128,8 +128,6 @@ export default {
     }
   },
   mounted() {
-    console.log("typeof: ", typeof this.$vuetify.theme.dark)
-    console.log("typeof: ", typeof localStorage.getItem("internet\_renta\_nuxt.dark\_mode"))
     this.cargarDarkMode()
   },
   methods: {
