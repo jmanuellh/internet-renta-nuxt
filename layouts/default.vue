@@ -80,6 +80,7 @@
           <v-switch
             v-model="$vuetify.theme.dark"
             label="modo nocturno"
+            @change="cambioDarkMode()"
           ></v-switch>
         </v-list-item>
         <!-- <v-list-item @click.native="right = !right">
@@ -125,6 +126,23 @@ export default {
       rightDrawer: false,
       title: 'Internet servicios'
     }
-  }
+  },
+  mounted() {
+    console.log("typeof: ", typeof this.$vuetify.theme.dark)
+    console.log("typeof: ", typeof localStorage.getItem("internet\_renta\_nuxt.dark\_mode"))
+    this.cargarDarkMode()
+  },
+  methods: {
+    cargarDarkMode() {
+      if(localStorage.getItem("internet\_renta\_nuxt.dark\_mode") == "true") {
+        this.$vuetify.theme.dark = true
+      } else {
+        this.$vuetify.theme.dark = false
+      }
+    },
+    cambioDarkMode() {
+      localStorage.setItem("internet\_renta\_nuxt.dark\_mode", this.$vuetify.theme.dark);
+    }
+  },
 }
 </script>
