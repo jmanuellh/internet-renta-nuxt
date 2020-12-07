@@ -13,7 +13,7 @@
         )
         v-text-field(
           v-model.number="nuevaRenta.cantidad"
-          type="number" 
+          type="number"
           label = "Cantidad"
         )
         div(class="d-flex justify-end" )
@@ -24,6 +24,11 @@
         :items = "internetRentas"
         :headers = "cabeceras"
       )
+        template(v-slot:item.cortado="{ item }")
+          v-checkbox(
+            v-model="item.cortado"
+            @change="cambioEstadoCorte(item)"
+          )
         template(v-slot:item.fechaCorte="{ item }")
           span {{ $moment(item.fechaCorte).format("DD/MM/YYYY") }}
 
@@ -37,6 +42,10 @@ export default {
     nuevaRenta: {},
     internetRentas: [],
     cabeceras: [
+      {
+        text: "Cortado",
+        value: "cortado"
+      },
       {
         text: "Nombre",
         value: 'nombre'
@@ -67,6 +76,9 @@ export default {
       this.$axios.post("/internetRentas", this.nuevaRenta).then(() => {
         this.obtenerInternetRentas()
       })
+    },
+    cambioEstadoCorte(item) {
+      this.$axios.$put("/internetRentas/"+item.id, item)
     }
   }
 }
