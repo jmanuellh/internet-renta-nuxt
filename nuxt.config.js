@@ -6,6 +6,9 @@ export default {
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
+    htmlAttrs: {
+      lang: 'es-mx'
+    },
     titleTemplate: '%s - internet-renta-nuxt',
     title: 'internet-renta-nuxt',
     meta: [
@@ -33,6 +36,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    '@nuxtjs/moment'
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -66,6 +70,7 @@ export default {
       }
     }
   },
+  
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
