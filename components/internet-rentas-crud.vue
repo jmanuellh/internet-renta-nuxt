@@ -35,7 +35,9 @@
         template(v-slot:item.fechaCorte="{ item }")
           span {{ $moment(item.fechaCorte).format("DD/MM/YYYY") }}
         template(v-slot:item.acciones="{ item }")
-          v-btn( @click="actualizandoInternetRenta(item)" ) Editar
+          v-btn( @click="actualizandoInternetRenta(item)" color="primary"  ) Editar
+          v-btn( @click="eliminarInternetRenta(item.id)" color="error") Eliminar
+            
             
 
 </template>
@@ -80,13 +82,10 @@ export default {
     },
     async obtenerInternetRentas() {
       this.internetRentas = await this.$axios.$get("/internetRentas")
-      // this.internetRentas.forEach((element, index) => {
-      //   // console.log('index: ', index)
-      //   // element.fechaCorte
-      // });
     },
     agregarInternetRenta() {
       this.$axios.post("/internetRentas", this.nuevaRenta).then(() => {
+        this.limpiarNuevaRenta()
         this.obtenerInternetRentas()
       })
     },
@@ -100,6 +99,10 @@ export default {
     async actualizarInternetRenta() {
       await this.$axios.$put("/internetRentas/"+this.nuevaRenta.id, this.nuevaRenta)
       this.limpiarNuevaRenta()
+    },
+    async eliminarInternetRenta(id) {
+      await this.$axios.$delete("/internetRentas/"+id)
+      this.obtenerInternetRentas()
     }
   }
 }
