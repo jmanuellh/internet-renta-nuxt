@@ -50,6 +50,22 @@
       </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
+      <v-tooltip
+        v-if="$route.path == '/internet-rentas'"
+        bottom
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-bind="attrs"
+            v-on="on"
+            href="https://localhost:5001/api/internetRentas/descargarExcel"
+            download
+          >
+            <v-icon>mdi-download</v-icon>
+          </v-btn>
+        </template>
+        <span>Desargar Excel</span>
+      </v-tooltip>
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn

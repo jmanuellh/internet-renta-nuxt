@@ -37,9 +37,6 @@
         template(v-slot:item.acciones="{ item }")
           v-btn( @click="actualizandoInternetRenta(item)" color="primary"  ) Editar
           v-btn( @click="eliminarInternetRenta(item.id)" color="error") Eliminar
-            
-            
-
 </template>
 
 <script>
